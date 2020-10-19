@@ -5,6 +5,9 @@ import java.util.StringJoiner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static java.lang.String.format;
+import static java.util.stream.Collectors.joining;
+
 public class WordFrequencyGame {
 
     private static final String WHITE_SPACES = "\\s+";
@@ -40,12 +43,8 @@ public class WordFrequencyGame {
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
-    private String buildWordInfo(List<WordInfo> inputList) {
-        StringJoiner joiner = new StringJoiner("\n");
-        for (WordInfo wordInfo : inputList) {
-            String wordLine = String.format("%s %d", wordInfo.getValue(), wordInfo.getWordCount());
-            joiner.add(wordLine);
-        }
-        return joiner.toString();
+    private String buildWordInfo(List<WordInfo> wordInfos) {
+        return wordInfos.stream().map(wordInfo ->format("%s %d", wordInfo.getValue(), wordInfo.getWordCount()))
+                .collect(joining("\n"));
     }
 }
