@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -6,6 +7,7 @@ import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 public class WordFrequencyGame {
 
@@ -21,17 +23,16 @@ public class WordFrequencyGame {
     }
 
     private List<WordInfo> sortMapToDescending(List<WordInfo> wordInfoList) {
-        return wordInfoList.stream()
-                .sorted((wordInfo1, wordInfo2) ->
-                        wordInfo2.getWordCount() - wordInfo1.getWordCount())
-                .collect(Collectors.toList());
+        return wordInfoList.stream().sorted
+                (Comparator.comparingInt(WordInfo::getWordCount)
+                        .reversed()).collect(toList());
     }
 
     private List<WordInfo> addFrequencyToWordInfo(String stringOfWords) {
         Map<String, Long> wordFrequencyMap = calculateFrequency(stringOfWords);
         return wordFrequencyMap.keySet().stream().map(word ->
                 new WordInfo(word, wordFrequencyMap.get(word).intValue()))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     private Map<String, Long> calculateFrequency(String stringOfWords) {
