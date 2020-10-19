@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 class WordInfo {
     private String value;
     private int count;
@@ -6,7 +8,6 @@ class WordInfo {
         this.value = word;
         this.count = count;
     }
-
 
     String getValue() {
         return this.value;
@@ -17,4 +18,16 @@ class WordInfo {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WordInfo wordInfo = (WordInfo) o;
+        return Objects.equals(value, wordInfo.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
 }
