@@ -6,28 +6,21 @@ public class WordFrequencyGame {
 
     public String getResult(String stringOfWords) {
 
+        try {
+            List<WordInfo> wordInfoList = calculateFrequency(stringOfWords);
+            Map<String, List<WordInfo>> wordInfoMap = getListMap(wordInfoList);
 
-        if (stringOfWords.split(WHITE_SPACES).length == 1) {
-            return stringOfWords + " 1";
-        } else {
-
-            try {
-                List<WordInfo> wordInfoList = calculateFrequency(stringOfWords);
-
-                Map<String, List<WordInfo>> wordInfoMap = getListMap(wordInfoList);
-
-                List<WordInfo> wordInfos = new ArrayList<>();
-                for (Map.Entry<String, List<WordInfo>> entry : wordInfoMap.entrySet()) {
-                    WordInfo input = new WordInfo(entry.getKey(), entry.getValue().size());
-                    wordInfos.add(input);
-                }
-                wordInfoList = wordInfos;
-                wordInfoList.sort((wordInfo1, wordInfo2) -> wordInfo2.getWordCount() - wordInfo1.getWordCount());
-
-                return buildWordInfo(wordInfoList);
-            } catch (Exception e) {
-                return "Calculate Error";
+            List<WordInfo> wordInfos = new ArrayList<>();
+            for (Map.Entry<String, List<WordInfo>> entry : wordInfoMap.entrySet()) {
+                WordInfo input = new WordInfo(entry.getKey(), entry.getValue().size());
+                wordInfos.add(input);
             }
+            wordInfoList = wordInfos;
+            wordInfoList.sort((wordInfo1, wordInfo2) -> wordInfo2.getWordCount() - wordInfo1.getWordCount());
+
+            return buildWordInfo(wordInfoList);
+        } catch (Exception e) {
+            return "Calculate Error";
         }
     }
 
@@ -51,7 +44,6 @@ public class WordFrequencyGame {
         return joiner.toString();
     }
 
-
     private Map<String, List<WordInfo>> getListMap(List<WordInfo> wordInfoList) {
         Map<String, List<WordInfo>> wordInfos = new HashMap<>();
         for (WordInfo wordInfo : wordInfoList) {
@@ -63,10 +55,6 @@ public class WordFrequencyGame {
                 wordInfos.get(wordInfo.getValue()).add(wordInfo);
             }
         }
-
-
         return wordInfos;
     }
-
-
 }
