@@ -30,8 +30,7 @@ public class WordFrequencyGame {
     private List<WordInfo> addFrequencyToWordInfo(String stringOfWords) {
         Map<String, Long> wordFrequencyList = calculateFrequency(stringOfWords);
         return wordFrequencyList.keySet().stream().map(word ->
-                new WordInfo(word, wordFrequencyList
-                        .get(word).intValue()))
+                new WordInfo(word, wordFrequencyList.get(word).intValue()))
                 .collect(Collectors.toList());
     }
 
