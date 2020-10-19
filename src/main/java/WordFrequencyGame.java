@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -44,7 +43,8 @@ public class WordFrequencyGame {
     }
 
     private String buildWordInfo(List<WordInfo> wordInfos) {
-        return wordInfos.stream().map(wordInfo ->format("%s %d", wordInfo.getValue(), wordInfo.getWordCount()))
+        return wordInfos.stream().map(wordInfo -> format("%s %d", wordInfo.getValue(),
+                wordInfo.getWordCount()))
                 .collect(joining("\n"));
     }
 }
