@@ -20,18 +20,17 @@ public class WordFrequencyGame {
                     inputList.add(input);
                 }
 
-                Map<String, List<WordInfo>> map = getListMap(inputList);
+                Map<String, List<WordInfo>> wordInfoMap = getListMap(inputList);
 
-                List<WordInfo> list = new ArrayList<>();
-                for (Map.Entry<String, List<WordInfo>> entry : map.entrySet()) {
+                List<WordInfo> wordInfos = new ArrayList<>();
+                for (Map.Entry<String, List<WordInfo>> entry : wordInfoMap.entrySet()) {
                     WordInfo input = new WordInfo(entry.getKey(), entry.getValue().size());
-                    list.add(input);
+                    wordInfos.add(input);
                 }
-                inputList = list;
+                inputList = wordInfos;
+                inputList.sort((wordInfo1, wordInfo2) -> wordInfo2.getWordCount() - wordInfo1.getWordCount());
 
-                inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
-
-               return buildWordInfo(inputList);
+                return buildWordInfo(inputList);
             } catch (Exception e) {
                 return "Calculate Error";
             }
@@ -48,20 +47,20 @@ public class WordFrequencyGame {
     }
 
 
-    private Map<String, List<WordInfo>> getListMap(List<WordInfo> inputList) {
-        Map<String, List<WordInfo>> map = new HashMap<>();
-        for (WordInfo input : inputList) {
-            if (!map.containsKey(input.getValue())) {
-                ArrayList arr = new ArrayList<>();
-                arr.add(input);
-                map.put(input.getValue(), arr);
+    private Map<String, List<WordInfo>> getListMap(List<WordInfo> wordInfoList) {
+        Map<String, List<WordInfo>> wordInfos = new HashMap<>();
+        for (WordInfo wordInfo : wordInfoList) {
+            if (!wordInfos.containsKey(wordInfo.getValue())) {
+                List<WordInfo> wordDetails = new ArrayList<>();
+                wordDetails.add(wordInfo);
+                wordInfos.put(wordInfo.getValue(), wordDetails);
             } else {
-                map.get(input.getValue()).add(input);
+                wordInfos.get(wordInfo.getValue()).add(wordInfo);
             }
         }
 
 
-        return map;
+        return wordInfos;
     }
 
 
