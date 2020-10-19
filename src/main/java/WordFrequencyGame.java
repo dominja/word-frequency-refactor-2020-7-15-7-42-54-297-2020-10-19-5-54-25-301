@@ -12,7 +12,7 @@ public class WordFrequencyGame {
     public String getResult(String stringOfWords) {
 
         try {
-            List<WordInfo> wordInfoList = addFrequencyToMap(stringOfWords);
+            List<WordInfo> wordInfoList = addFrequencyToWordInfo(stringOfWords);
             List<WordInfo> wordInfos = sortMapToDescending(wordInfoList);
             return buildWordInfo(wordInfos);
         } catch (Exception e) {
@@ -27,7 +27,7 @@ public class WordFrequencyGame {
                 .collect(Collectors.toList());
     }
 
-    private List<WordInfo> addFrequencyToMap(String stringOfWords) {
+    private List<WordInfo> addFrequencyToWordInfo(String stringOfWords) {
         Map<String, Long> wordFrequencyList = calculateFrequency(stringOfWords);
         return wordFrequencyList.keySet().stream().map(word ->
                 new WordInfo(word, wordFrequencyList
