@@ -9,8 +9,6 @@ import static java.util.stream.Collectors.joining;
 
 public class WordFrequencyGame {
 
-    private static final String WHITE_SPACES = "\\s+";
-
     public String getResult(String stringOfWords) {
 
         try {
@@ -37,6 +35,7 @@ public class WordFrequencyGame {
     }
 
     private Map<String, Long> calculateFrequency(String stringOfWords) {
+        final String WHITE_SPACES = "\\s+";
         List<String> wordList = Arrays.asList(stringOfWords.split(WHITE_SPACES));
         return wordList.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
