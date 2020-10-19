@@ -12,7 +12,6 @@ public class WordFrequencyGame {
         } else {
 
             try {
-
                 String[] words = inputStr.split(WHITE_SPACES);
 
                 List<WordInfo> inputList = new ArrayList<>();
@@ -32,16 +31,20 @@ public class WordFrequencyGame {
 
                 inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
-                StringJoiner joiner = new StringJoiner("\n");
-                for (WordInfo wordInfo : inputList) {
-                    String wordLine = String.format("%s %d", wordInfo.getValue(), wordInfo.getWordCount());
-                    joiner.add(wordLine);
-                }
-                return joiner.toString();
+               return buildWordInfo(inputList);
             } catch (Exception e) {
                 return "Calculate Error";
             }
         }
+    }
+
+    private String buildWordInfo(List<WordInfo> inputList) {
+        StringJoiner joiner = new StringJoiner("\n");
+        for (WordInfo wordInfo : inputList) {
+            String wordLine = String.format("%s %d", wordInfo.getValue(), wordInfo.getWordCount());
+            joiner.add(wordLine);
+        }
+        return joiner.toString();
     }
 
 
